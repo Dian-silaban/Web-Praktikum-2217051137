@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,18 +15,17 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Routes untuk User
 Route::get('/user/profile', [UserController::class, 'profile']); 
-
-
 Route::get('/user/create', [UserController::class, 'create']);
-
-
 Route::post('/user/store', function (Request $request) {
-    
     $nama = $request->input('nama');
     $npm = $request->input('npm');
     $kelas = $request->input('kelas');
 
-    
     return "Nama: $nama, NPM: $npm, Kelas: $kelas";
 })->name('user.store');
+
+// Routes untuk Profile
+Route::get('/profile/{nama}/{kelas}/{npm}', [ProfileController::class, 'profile']);
