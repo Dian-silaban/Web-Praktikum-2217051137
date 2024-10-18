@@ -63,9 +63,7 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-
-    font-size:
-    font-size: 15px;
+    font-size: 15px; /* Pastikan ini satu-satunya deklarasi */
     background-color: #f9f9f9;
     box-sizing: border-box;
     color: #000000;
