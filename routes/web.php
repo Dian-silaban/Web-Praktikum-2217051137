@@ -14,7 +14,7 @@ use App\Http\Controllers\ProfileController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/user/profile', [UserController::class, 'profile']); 
+Route::get('/users/profile', [UserController::class, 'profile']); 
 
 
 Route::get('/user/create', [UserController::class, 'create']);
@@ -26,7 +26,12 @@ Route::get('/', function () {
 
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
 
+
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
 
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+
+Route::get('/show/{id}', [UserController::class, 'show'])->name('users.show');
+

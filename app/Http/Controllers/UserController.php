@@ -45,7 +45,8 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'npm' => 'required|string|max:255|unique:user,npm', 
-            'kelas_id' => 'required|exists:kelas,id', 
+            'kelas_id' => 'required|exists:kelas,id',
+            'foto' =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
         ], [
             'nama.required' => 'Nama wajib diisi.',
             'npm.required' => 'NPM wajib diisi.',
@@ -53,12 +54,22 @@ class UserController extends Controller
             'kelas_id.required' => 'Kelas wajib dipilih.',
             'kelas_id.exists' => 'Kelas tidak valid.',
         ]);
+        
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            // Menyimpan file foto di folder 'uploads'
+            $fotoPath = $foto->store('uploads/img', 'public');
 
-       
+            } else {
+            // Jika tidak ada file yang diupload, set fotoPathmenjadi null atau default
+            $fotoPath = null;
+            }
+
         $this->userModel->create([ 
             'nama' => $request->input('nama'), 
             'npm' => $request->input('npm'), 
-            'kelas_id' => $request->input('kelas_id'), 
+            'kelas_id' => $request->input('kelas_id'),
+            'foto' => $fotoPath, 
             ]); 
             return redirect()->to('/users');
     }
@@ -75,4 +86,17 @@ class UserController extends Controller
 
         return view('create_user', $data);
     }
+
+    public function show($id)
+{
+    $user = $this->userModel->getUser($id);  // Mengambil user berdasarkan ID
+
+    $data = [
+        'title' => 'Profile',
+        'user'  => $user,
+    ];
+
+    return view('profile', $data);  
+}
+
 }
