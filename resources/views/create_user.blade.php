@@ -4,7 +4,7 @@
 <div class="flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 class="text-center text-2xl font-bold mb-6">Create User</h2>
-        <form action="{{ route('user.store') }}" method="POST" class="space-y-4">
+        <form action="/user/store" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div>
@@ -34,6 +34,11 @@
                 @error('kelas_id')
                 <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                 @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="foto">Upload Foto:</label>
+                <input type="file" name="foto" id="foto">
             </div>
 
             <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Submit</button>
